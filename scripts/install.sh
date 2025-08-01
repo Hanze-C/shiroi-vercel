@@ -58,15 +58,4 @@ else
     exit 1
 fi
 
-# 运行构建命令
-echo "🔨 执行构建..."
-if command -v pnpm &>/dev/null; then
-    pnpm run build
-elif command -v npm &>/dev/null; then
-    npm run build
-else
-    echo "❌ 未找到包管理器"
-    exit 1
-fi
-
 echo "✅ 构建完成！"

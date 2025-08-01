@@ -1,13 +1,7 @@
 {
   "name": "shiroi-vercel",
-  "scripts": {
-    "build": "bash ./scripts/build.sh"
-  },
   "keywords": [],
   "author": "Innei",
   "license": "MIT",
-  "packageManager": "pnpm@10.13.1",
-  "dependencies": {
-    "next": "15.4.5"
-  }
+  "packageManager": "pnpm@10.13.1"
 }

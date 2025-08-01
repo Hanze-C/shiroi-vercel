@@ -29,8 +29,7 @@ else
 fi
 # 获取远程信息
 git fetch origin
-# 拉取指定的 commit/branch 到当前目录
-git checkout "$TARGET_COMMIT" || git checkout "origin/$TARGET_COMMIT"
+git reset --hard "origin/$TARGET_COMMIT"
 
 # 2. 启动 git lfs
 echo "🔧 启动 Git LFS..."

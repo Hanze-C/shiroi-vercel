@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # 遇到错误立即退出
+set -e # 遇到错误立即退出
 
 echo "🚀 开始 Vercel 构建流程..."
 
@@ -15,24 +15,16 @@ echo "🎯 目标 commit/branch: $TARGET_COMMIT"
 
 # 1. 使用 git 拉取 innei-dev/shiroi 仓库到当前目录，不要文件夹
 echo "📦 克隆 innei-dev/shiroi 仓库..."
-if [ -d ".git" ]; then
-    echo "⚠️  检测到已存在 .git 目录，更新到指定 commit..."
-    # 确保远程仓库是正确的
-    git remote set-url origin https://github.com/innei-dev/shiroi.git
-    # 获取最新的远程信息
-    git fetch origin
-    # 切换到指定的 commit/branch
-    git checkout "$TARGET_COMMIT" || git checkout "origin/$TARGET_COMMIT"
-else
-    # 初始化空的 git 仓库
-    git init
-    # 添加远程仓库
-    git remote add origin https://github.com/innei-dev/shiroi.git
-    # 获取远程信息
-    git fetch origin
-    # 拉取指定的 commit/branch 到当前目录
-    git checkout "$TARGET_COMMIT" || git checkout "origin/$TARGET_COMMIT"
-fi
+
+rm -rf .git
+# 初始化空的 git 仓库
+git init
+# 添加远程仓库
+git remote add origin https://github.com/innei-dev/shiroi.git
+# 获取远程信息
+git fetch origin
+# 拉取指定的 commit/branch 到当前目录
+git checkout "$TARGET_COMMIT" || git checkout "origin/$TARGET_COMMIT"
 
 # 2. 启动 git lfs
 echo "🔧 启动 Git LFS..."
@@ -50,10 +42,10 @@ fi
 
 # 安装依赖 (优先使用 pnpm，其次 npm)
 echo "📦 安装依赖..."
-if command -v pnpm &> /dev/null; then
+if command -v pnpm &>/dev/null; then
     echo "使用 pnpm 安装依赖..."
     pnpm install
-elif command -v npm &> /dev/null; then
+elif command -v npm &>/dev/null; then
     echo "使用 npm 安装依赖..."
     npm install
 else
@@ -63,9 +55,9 @@ fi
 
 # 运行构建命令
 echo "🔨 执行构建..."
-if command -v pnpm &> /dev/null; then
+if command -v pnpm &>/dev/null; then
     pnpm run build
-elif command -v npm &> /dev/null; then
+elif command -v npm &>/dev/null; then
     npm run build
 else
     echo "❌ 未找到包管理器"

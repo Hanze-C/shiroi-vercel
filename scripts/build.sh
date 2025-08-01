@@ -20,7 +20,13 @@ rm -rf .git
 # 初始化空的 git 仓库
 git init
 # 添加远程仓库
-git remote add origin https://github.com/innei-dev/shiroi.git
+if [ -n "$GH_TOKEN" ]; then
+    echo "🔑 使用 GitHub Token 进行身份验证..."
+    git remote add origin https://$GH_TOKEN@github.com/innei-dev/shiroi.git
+else
+    echo "⚠️  未设置 GH_TOKEN，使用公开访问（可能会失败于私有仓库）"
+    git remote add origin https://github.com/innei-dev/shiroi.git
+fi
 # 获取远程信息
 git fetch origin
 # 拉取指定的 commit/branch 到当前目录
